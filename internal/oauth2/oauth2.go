@@ -472,7 +472,9 @@ func RequestToken(
 			return request, response, err
 		}
 
-		req.Header.Add("Origin", fmt.Sprintf("%s://%s", redirectURL.Scheme, redirectURL.Host))
+		if cconfig.GrantType != AuthorizationCodeGrantType {
+			req.Header.Add("Origin", fmt.Sprintf("%s://%s", redirectURL.Scheme, redirectURL.Host))
+		}
 	}
 
 	if cconfig.DPoP {
